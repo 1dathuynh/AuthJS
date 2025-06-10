@@ -4,17 +4,14 @@ import { registerSchemas } from "@/schemas"
 import { revalidatePath,revalidateTag } from "next/cache"
 import { db } from "@/lib/db"
 import bcrypt from "bcrypt"
+import { getUserByEmail } from "@/data/user"
 export const register = async (values: z.infer<typeof registerSchemas>) => {
 	const validated = registerSchemas.safeParse(values);
 	if(!validated.success){
 		return { error: "Invalid field! "}
 	}
 	const {name, email, password} = validated.data
-	const existEmail = await db.user.findUnique({
-		where: {
-			email: email,
-		}
-	})
+	const existEmail = await getUserByEmail(email);
 	if(existEmail){
 		return {error: "Email already in use!"}
 	}
