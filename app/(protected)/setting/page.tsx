@@ -1,4 +1,4 @@
-import { auth, signOut } from "@/auth"
+import { auth, signIn, signOut } from "@/auth"
 import { Button } from "@/components/ui/button";
 export const  SettingPage = async () => {
 	const session = await auth();

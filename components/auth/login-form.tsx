@@ -10,11 +10,11 @@ import { Button } from "../ui/button";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 import { login } from "@/actions/login";
-import { useState, useTransition } from "react";
+import { useState, useTransition } from "react";;
 const LoginForm = () => {
 	const [isPending, startTransition] = useTransition()
-		const [error, setError] = useState<string | undefined>();
-		const [success, setSuccess] = useState<string | undefined>();
+	const [error, setError] = useState<string | undefined>();
+	const [success, setSuccess] = useState<string | undefined>();
 	const form = useForm<z.infer<typeof loginSchemas>>({
 		resolver: zodResolver(loginSchemas),
 		defaultValues: {

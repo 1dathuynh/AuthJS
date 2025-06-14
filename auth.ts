@@ -3,6 +3,8 @@ import authConfig from "./auth.config"
 import {PrismaAdapter } from "@auth/prisma-adapter"
 import { db } from "./lib/db"
 import Credentials from "next-auth/providers/credentials"
+import Github from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 import { loginSchemas } from "./schemas"
 import { getUserByEmail } from "./data/user"
 import { getUserById } from "./data/user"
@@ -11,6 +13,17 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 	adapter: PrismaAdapter(db),
 	session: { strategy: "jwt" },
 	...authConfig,
+	pages: {
+		error: '/auth/error'
+	},
+	events: {
+		async linkAccount({ user }){
+			await db.user.update({
+				where: {id: user.id},
+				data: {emailVerified: new Date()}
+			})
+		}
+	},
 	callbacks: {
 		async session({token, session}){
 			if(token.sub && session.user){
@@ -48,6 +61,15 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 			}
 			return null;
 		}
-	})
+	}),
+		Github({
+			clientId: process.env.GITHUB_CLIENT_ID,
+			clientSecret: process.env.GITHUB_CLIENT_SECRET
+		}),
+		Google({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET
+		})
+
 	]
 })
