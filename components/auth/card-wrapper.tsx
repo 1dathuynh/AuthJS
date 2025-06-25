@@ -10,7 +10,7 @@ interface CardWrapperProps {
 	 headerLabel: string;
 	 backButtonLabel: string;
 	 backButtonHref:string;
-	 showSocial?: Boolean;
+	 showSocial?: boolean;
 }
 export const CardWrapper = ({children, headerLabel, backButtonLabel, backButtonHref, showSocial} : CardWrapperProps) => {
 	return (
@@ -19,7 +19,9 @@ export const CardWrapper = ({children, headerLabel, backButtonLabel, backButtonH
 				<Header label={headerLabel} />
 			</CardHeader>
 			<CardContent>
+				<div className="py-4">
 				{children}
+				</div>
 			</CardContent>
 			{showSocial && (
 				<CardFooter>

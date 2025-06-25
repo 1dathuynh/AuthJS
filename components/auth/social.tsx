@@ -8,7 +8,7 @@ export const Social =  () => {
 	const onClick =  async (provider: "Github" | "Google") => {
 		
 		signIn(provider, {
-			redirectTo: default_login_redirect
+			callbackUrl: default_login_redirect
 		})
 	}
 	return (
@@ -22,3 +22,4 @@ export const Social =  () => {
 		</div>
 	)
 }
+

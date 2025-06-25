@@ -5,6 +5,8 @@ import { revalidatePath,revalidateTag } from "next/cache"
 import { db } from "@/lib/db"
 import bcrypt from "bcrypt"
 import { getUserByEmail } from "@/data/user"
+import {sendVerificationEmail} from "@/lib/mail"
+import { generateVerificationToken } from "@/lib/tokens"
 export const register = async (values: z.infer<typeof registerSchemas>) => {
 	const validated = registerSchemas.safeParse(values);
 	if(!validated.success){
@@ -24,6 +26,11 @@ export const register = async (values: z.infer<typeof registerSchemas>) => {
 			password: passwordHash
 		}
 	})
+	const verificationToken = await generateVerificationToken(email);
 
-	return {success: "User created!!"}
+	await sendVerificationEmail(
+		verificationToken.email,
+		verificationToken.token
+	);
+	return {success: "Confirmation email sent!"}
 } 
