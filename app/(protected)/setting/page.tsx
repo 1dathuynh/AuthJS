@@ -25,7 +25,7 @@ import { FormError } from "@/components/form-error";
 import { UserRole } from "@prisma/client";
 import { Switch } from "@/components/ui/switch";
 
-export const  SettingPage = () => {
+const  SettingPage = () => {
 	const user = useCurrentUser();
 	const { update } = useSession()
 	const [isPending, startTransition] = useTransition();

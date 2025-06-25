@@ -99,7 +99,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 					return null;
 				}
 				const passwordMatch =  await bcrypt.compare(password, user.password);
-				if(passwordMatch) return user;
+				if(passwordMatch) {
+					return {
+					id: user.id,
+					name: user.name,
+					email: user.email,
+					emailVerified: user.emailVerified,
+					image: user.image,
+					password: user.password,
+					role: user.role,
+					isTwoFactorEnabled: user.isTwoFactorEnabled,
+					isOAuth: false, 
+  				};
+				}
 			}
 			return null;
 		}

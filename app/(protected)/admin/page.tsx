@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react"
 import { toast } from "sonner";
 
 
-export const AdminPage = () => {
+const AdminPage = () => {
 	const session = useSession();
 	const onServerActionClick = ()=> {
 		admin()
