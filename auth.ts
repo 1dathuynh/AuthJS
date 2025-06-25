@@ -10,6 +10,7 @@ import { getUserByEmail } from "./data/user"
 import { getUserById } from "./data/user"
 import bcrypt from 'bcrypt'
 import { getTwoFactorConfirmationByUserId } from "./data/two-factor-confirmation"
+import { getAccountByUserId } from "./data/accout"
 export const { auth, handlers, signIn, signOut } = NextAuth({
 	adapter: PrismaAdapter(db),
 	session: { strategy: "jwt" },
@@ -55,7 +56,19 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 			}
 			if(session.user && token.role){
 				session.user.role = token.role
-			}			
+			}	
+			if(session.user){
+				session.user.isTwoFactorEnabled = token.isTwoFactorEnabled 
+			}				
+			if(session.user){
+				session.user.name = token.name
+			}
+			if(session.user){
+				session.user.email = token.email as string
+			}
+			if(session.user){
+				session.user.isOAuth = token.isOAuth as boolean
+			}
 			return session
 		},
 		async jwt({token}) {
@@ -66,7 +79,12 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 			if(!user){
 				return token;
 			}
+			const existingAccount = await getAccountByUserId(user.id)
+			token.isOAuth = !!existingAccount
+			token.name = user.name
+			token.email = user.email
 			token.role = user.role
+			token.isTwoFactorEnabled = user.isTwoFactorEnabled
 			return token;
     }
 	},
