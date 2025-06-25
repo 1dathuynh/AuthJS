@@ -8,7 +8,7 @@ interface RoleGateProps{
 	children: React.ReactNode
 	allowedRole: UserRole
 }
-export const RoleGate = ({children, allowedRole}: RoleGateProps) => {
+export const RoleGate = ({children}: RoleGateProps) => {
 	const session = useSession()
 	const role = session.data?.user?.role;
 	if(!role){

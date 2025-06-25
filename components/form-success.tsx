@@ -1,7 +1,7 @@
 import { FaCircleCheck } from "react-icons/fa6";
 
 interface FormSuccessProps{
-	message?: String
+	message?:String
 }
 export const FormSuccess = ({message} : FormSuccessProps) => {
 	if(!message) return null

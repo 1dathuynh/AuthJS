@@ -1,7 +1,6 @@
 "use client"
 import { UserInfo } from '@/components/auth/user-info';
 import { useCurrentUser } from '@/hooks/user-current';
-import { User } from '@prisma/client';
 import React from 'react'
 
 const ClientPage = () => {
