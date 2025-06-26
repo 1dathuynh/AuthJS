@@ -1,5 +1,4 @@
 import {db} from '@/lib/db'
-import React from 'react'
 
 export const getVerificationTokenByEmail = async (
 	email: string) => {

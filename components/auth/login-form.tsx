@@ -19,7 +19,6 @@ const LoginForm = () => {
 	const [success, setSuccess] = useState<string | undefined>();
 	const [showTwoFactor, setShowTwoFactor] = useState(false);
 	const searchParams = useSearchParams();
-	const callbackUrl = searchParams.get("callbackUrl");
 
 	const urlError = searchParams.get('error') === "Configuration" ? "Email already in use with different provider! "
 	: ""

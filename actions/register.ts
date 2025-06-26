@@ -1,7 +1,6 @@
 "use server"
 import * as z from "zod"
 import { registerSchemas } from "@/schemas"
-import { revalidatePath,revalidateTag } from "next/cache"
 import { db } from "@/lib/db"
 import bcrypt from "bcrypt"
 import { getUserByEmail } from "@/data/user"
